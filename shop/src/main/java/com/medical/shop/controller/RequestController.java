@@ -12,17 +12,23 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @CrossOrigin
 public class RequestController{
-    private final RequestRepository repo;
+    //For Deployment
+   /* private final RequestRepository repo;
     @Autowired
-    private EmailService emailService;
-    public RequestController(RequestRepository repo){
+    private EmailService emailService;*/
+    //For Deployment
+   /* public RequestController(RequestRepository repo){
         this.repo=repo;
+    }*/
+
+    public RequestController() {
     }
 
     @PostMapping("/save")
     public Request saveRequest(@RequestBody Request request) {
         //return repo.save(request);
-        Request saved = repo.save(request);
+        //For Deployment
+       /* Request saved = repo.save(request);
 
         emailService.sendEmail(
                 request.getName(),
@@ -30,7 +36,8 @@ public class RequestController{
                 request.getItems()
         );
 
-        return saved;
+        return saved;*/
+        return request;
     }
 
 }
