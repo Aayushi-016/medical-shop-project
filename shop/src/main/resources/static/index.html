@@ -258,17 +258,17 @@
             <form onsubmit="handleSubmit(event)">
 
                 <div class="input-group">
-                    <label>Your Name</label>
+                    <label for="name">>Your Name</label>
                     <input type="text" id="name" required>
                 </div>
 
                 <div class="input-group">
-                    <label>Phone Number</label>
+                    <label for="Phone">>Phone Number</label>
                     <input type="tel" id="phone" required>
                 </div>
 
                 <div class="input-group">
-                    <label>Items Required</label>
+                    <label for="items">>Items Required</label>
                     <textarea id="items" rows="4" required></textarea>
                 </div>
 
@@ -288,25 +288,6 @@
 
 <!-- SCRIPT -->
 <script>
-    /*let index = 0;
- const track = document.getElementById("sliderTrack");
- const totalSlides = 4;
-
- function slide() {
-     index++;
-
-     if (index >= totalSlides) {
-         index = 0;
-     }
-
-     // move
-     track.style.transition = "transform 0.8s ease-in-out";
-     track.style.transform = `translateX(-${index * 100}%)`;
- }
-
- // run every 2.5 sec
- setInterval(slide, 2500);*/
-
  let index = 0;
 const track = document.getElementById("sliderTrack");
 const totalSlides = 4; // original slides only
@@ -327,35 +308,43 @@ setInterval(() => {
     }
 
 }, 2500);
-          function handleSubmit(event) {
-              event.preventDefault();
-
-            const name = document.getElementById("name").value;
-              const phone = document.getElementById("phone").value;
-              const items = document.getElementById("items").value;
 
 
-              fetch("/save", {
-                  method: "POST",
-                  headers: {
-                      "Content-Type": "application/json"
-                  },
-                  body: JSON.stringify({
-                      name: name,
-                      phone: phone,
-                      items: items
-                  })
-              })
-              .then(response => response.json())
-              .then(data => {
-                  alert("Request saved successfully!");
-                    // CLEAR FORM
-                  document.querySelector("form").reset();
-              })
-              .catch(error => {
-                  alert("Error saving request!");
-              });
-          }
+    function handleSubmit(event) {
+    event.preventDefault();
+
+    const name = document.getElementById("name").value;
+    const phone = document.getElementById("phone").value;
+    const items = document.getElementById("items").value;
+
+    console.log("API CALL:", window.location.origin);
+
+    fetch("/save", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({
+            name: name,
+            phone: phone,
+            items: items
+        })
+    })
+    .then(response => {
+        if (!response.ok) {
+            throw new Error("Server error");
+        }
+        return response.json();
+    })
+    .then(data => {
+        alert("Request saved successfully!");
+        document.querySelector("form").reset();
+    })
+    .catch(error => {
+        console.error(error);
+        alert("Error saving request!");
+    });
+}
 </script>
 
 </body>
