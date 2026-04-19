@@ -22,7 +22,11 @@ public class RequestController{
 
     @PostMapping("/save")
     public Request saveRequest(@RequestBody Request request) {
-       return repo.save(request);
+
+
+        System.out.println("API HIT: " + request.getName());
+
+        return repo.save(request);
         //For Deployment
       /* Request saved = repo.save(request);
 
