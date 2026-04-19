@@ -335,7 +335,7 @@ setInterval(() => {
               const items = document.getElementById("items").value;
 
 
-              fetch("http://localhost:8080/save", {
+              fetch("/save", {
                   method: "POST",
                   headers: {
                       "Content-Type": "application/json"
