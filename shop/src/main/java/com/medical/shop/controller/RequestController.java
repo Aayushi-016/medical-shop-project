@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RequestController{
 
    private final RequestRepository repo;
-    @Autowired
-    private EmailService emailService;
+   // @Autowired
+  //  private EmailService emailService;
    public RequestController(RequestRepository repo){
         this.repo=repo;
     }
