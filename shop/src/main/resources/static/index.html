@@ -188,24 +188,55 @@
     padding: 8px;
     box-sizing: border-box;
 }
-.toast {
+/* MODAL BACKGROUND */
+.modal {
+    display: none;
     position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #0a74da;
-    color: white;
-    padding: 14px 20px;
-    border-radius: 8px;
-    opacity: 0;
-    transform: translateY(20px);
-    transition: all 0.3s ease;
-    box-shadow: 0 6px 15px rgba(0,0,0,0.2);
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.7);
+    justify-content: center;
+    align-items: center;
 }
 
-.toast.show {
-    opacity: 1;
-    transform: translateY(0);
+/* MODAL BOX */
+.modal-content {
+    background: white;
+    padding: 30px;
+    border-radius: 12px;
+    text-align: center;
+    width: 90%;
+    max-width: 350px;
+    animation: pop 0.3s ease;
 }
+
+/* GREEN TICK */
+.checkmark {
+    font-size: 50px;
+    color: green;
+    margin-bottom: 10px;
+}
+
+/* BUTTON */
+.modal-content button {
+    margin-top: 15px;
+    padding: 10px 20px;
+    background: #0a74da;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+/* ANIMATION */
+@keyframes pop {
+    from { transform: scale(0.7); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
  /* RESPONSIVE */
   @media (max-width: 768px) {
 
@@ -317,8 +348,16 @@
 
 </div>
 
+<!--Alert-->
+<div id="successModal" class="modal">
+    <div class="modal-content">
+        <div class="checkmark">✔</div>
+        <h2 id="modalTitle">Request Submitted!</h2>
+        <p id="modalMessage">We will contact you shortly.</p>
+        <button onclick="closeModal()">OK</button>
+    </div>
+</div>
 
-<div id="toast" class="toast"></div>
 <footer>
     © 2026 Mohan Medico And Surgico
 </footer>
@@ -374,27 +413,26 @@ setInterval(() => {
         return response.json();
     })
     .then(data => {
-        showToast("Request saved successfully!", true);
+        showModal(
+    "Request Saved!",
+    "Your request has been submitted successfully."
+);
         document.querySelector("form").reset();
     })
     .catch(error => {
         console.error(error);
-        showToast("Error saving request!");
+       showModal("Error!", "Something went wrong");
     });
 }
-    function showToast(message, isError = false) {
-    const toast = document.getElementById("toast");
+function showModal(title, message) {
+    document.getElementById("modalTitle").innerText = title;
+    document.getElementById("modalMessage").innerText = message;
+    document.getElementById("successModal").style.display = "flex";
+}
 
-    toast.innerText = message;
-    toast.style.background = isError ? "#e74c3c" : "#0a74da";
-
-    toast.classList.add("show");
-
-    setTimeout(() => {
-        toast.classList.remove("show");
-    }, 3000);
+function closeModal() {
+    document.getElementById("successModal").style.display = "none";
 }
 </script>
-
 </body>
 </html>
