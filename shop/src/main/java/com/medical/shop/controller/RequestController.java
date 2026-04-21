@@ -14,8 +14,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class RequestController{
 
    private final RequestRepository repo;
-   // @Autowired
-  //  private EmailService emailService;
+   @Autowired
+   private EmailService emailService;
    public RequestController(RequestRepository repo){
         this.repo=repo;
     }
@@ -26,9 +26,9 @@ public class RequestController{
 
         System.out.println("API HIT: " + request.getName());
 
-        return repo.save(request);
-        //For Deployment
-      /* Request saved = repo.save(request);
+        //return repo.save(request);
+
+        Request saved = repo.save(request);
 
         emailService.sendEmail(
                 request.getName(),
@@ -36,7 +36,7 @@ public class RequestController{
                 request.getItems()
         );
 
-        return saved;*/
+         return saved;
 
     }
 
